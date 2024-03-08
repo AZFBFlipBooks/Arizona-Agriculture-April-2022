@@ -1,833 +1,744 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html> 
+<html lang="en">
 
-<html lang="en"> 
+<head>
 
-<head> 
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Arizona Agriculture April 2022</title>
 
-<title>Arizona Agriculture April 2022</title> 
 
- 
 
-<script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script> 
+    <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script>
 
-</head> 
+</head>
 
-<style> 
+<style>
+    @media screen and (max-width: 1080vw) {
 
-@media screen and (max-width: 1080vw) { 
+        .main-content,
+        .sidebar {
 
-.main-content, .sidebar { 
+            width: 100%;
 
-width: 100%; 
+            margin: 0;
 
-margin: 0; 
+            padding: 10px;
 
-padding: 10px; 
+        }
 
-} 
+    }
 
-} 
+    #pannable-container {
 
-#pannable-container { 
+        display: flex;
 
-display: flex; 
+        justify-content: center;
 
-justify-content: center; 
+        align-items: center;
 
-align-items: center; 
+    }
 
-} 
+    * {
 
-* { 
+        margin: 30;
 
-margin: 0; 
+        padding: 0;
 
-padding: 0; 
+        box-sizing: border-box;
 
-box-sizing: border-box; 
+    }
 
-} 
 
- 
 
-body { 
+    body {
 
-height: 100vw; 
+        height: 100vw;
 
-display: flex; 
+        display: flex;
 
-justify-content: center; 
+        justify-content: center;
 
-align-items: center; 
+        align-items: center;
 
- 
 
-font-family: sans-serif; 
 
-background-color: lightgray; 
+        font-family: sans-serif;
 
-} 
+        background-color: lightgray;
 
- 
+    }
 
-/* Book */ 
 
- 
 
-.book { 
+    /* Book */
 
-position: relative; 
 
-width: 50vw; 
 
-height: 90vw; 
+    .book {
 
-transition: transform 0.5s; 
+        position: relative;
 
-flex-wrap: wrap; 
+        width: 50vw;
 
-display: flex; 
+        height: 90vw;
 
-z-index: 5; 
+        transition: transform 0.5s;
 
-margin: auto; /* Center the book horizontally */ 
+        flex-wrap: wrap;
 
-position: relative; /* Relative positioning for button placement */ 
+        display: flex;
 
-} 
+        z-index: 5;
 
- 
+        margin: auto;
+        /* Center the book horizontally */
+        margin-top: 5vh;
 
-.paper { 
+        position: relative;
+        /* Relative positioning for button placement */
 
-position: absolute; 
+    }
 
-width: 100%; 
 
-height: 100%; 
 
-top: 0; 
+    .paper {
 
-left: 0; 
+        position: absolute;
 
-perspective: 1500px; 
+        width: 100%;
 
- 
+        height: 100%;
 
-} 
+        top: 0;
 
- 
+        left: 0;
 
-.front, 
+        perspective: 1500px;
 
-.back { 
 
-background-color: white; 
 
-position: absolute; 
+    }
 
-width: 100%; 
 
-height: 100%; 
 
-top: 0; 
+    .front,
 
-left: 0; 
+    .back {
 
-transform-origin: left; 
+        background-color: white;
 
-transition: transform 0.5s; 
+        position: absolute;
 
-} 
+        width: 100%;
 
- 
+        height: 100%;
 
-.front { 
+        top: 0;
 
-z-index: 1; 
+        left: 0;
 
-backface-visibility: hidden; 
+        transform-origin: left;
 
-border-left: 3px solid powderblue; 
+        transition: transform 0.5s;
 
-} 
+    }
 
- 
 
-.back { 
 
-z-index: 0; 
+    .front {
 
-} 
+        z-index: 1;
 
- 
+        backface-visibility: hidden;
 
-.front-content, 
+        border-left: 3px solid powderblue;
 
-.back-content { 
+    }
 
-width: 100%; 
 
-height: 100%; 
 
-display: flex; 
+    .back {
 
-justify-content: center; 
+        z-index: 0;
 
-align-items: center; 
+    }
 
-} 
 
- 
 
-.back-content { 
+    .front-content,
 
-transform: rotateY(180deg) 
+    .back-content {
 
-} 
+        width: 100%;
 
- 
+        height: 100%;
 
-/* Paper flip effect */ 
+        display: flex;
 
-.flipped .front, 
+        justify-content: center;
 
-.flipped .back { 
+        align-items: center;
 
-transform: rotateY(-180deg); 
+    }
 
-} 
 
- 
 
-/* Controller Buttons */ 
+    .back-content {
 
- 
+        transform: rotateY(180deg)
+    }
 
-/* Additional CSS for top buttons */ 
 
-button#prev-btn, button#next-btn { 
 
-/* Basic styling */ 
+    /* Paper flip effect */
 
-position: absolute; /* Position them absolutely relative to their nearest positioned ancestor */ 
+    .flipped .front,
 
-top: 20px; /* Distance from the top of the page */ 
+    .flipped .back {
 
-} 
+        transform: rotateY(-180deg);
 
- 
+    }
 
-.button-container { 
 
-display: flex; /* Aligns children (buttons) in a row */ 
+    #prevNextContainer {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Align the buttons vertically */
+    width: 100%;
+    position: absolute; /* Positioning relative to the nearest positioned ancestor */
+    top: 5%; /* Adjust this percentage to move buttons above the zoom control */
+    z-index: 1010; /* Higher than zoom control to ensure it's on top */
+}
 
-justify-content: center; /* Centers the buttons horizontally */ 
+.control-button {
+    margin: 0 1vw; /* Adjust space between buttons */
+    background-color: #ddd;
+    border: none;
+    padding: 2vh 4vw; /* Adjust padding for button size */
+    cursor: pointer;
+    font-size: 1.8vh; /* Adjust font size */
+    border-radius: 0.8vh; /* Rounded corners for aesthetics */
+}
 
-align-items: center; /* Aligns buttons vertically */ 
 
-margin-top: 20px; /* Adjust as needed for spacing from top */ 
 
- 
+    /* Paper stack order */
 
-} 
+    #p1 {
 
- 
+        z-index: 3;
 
-/* Styles for buttons */ 
+    }
 
-button { 
 
-border-radius: 5px; 
 
-font-size: 16px; 
+    #p2 {
 
-cursor: pointer; 
+        z-index: 2;
 
-transition: background-color 0.3s, transform 0.5s; 
+    }
 
-border: none; 
 
-background-color: transparent; 
 
- 
+    #p3 {
 
-} 
+        z-index: 1;
 
-#prev-btn { 
+    }
 
-margin-right: 250px; /* Increase space to the right of the previous button */ 
-bottom: 500vw; 
-z-index: 900; 
+    /* Style for the zoom control container */
 
-} 
-
- 
-
-#next-btn { 
-
-margin-left: 1975px;
-bottom:500vw;
-z-index:900;
-
-
-} 
-
- 
-
-button:focus { 
-
-outline: none; 
-
-} 
-
- 
-
-button:hover i { 
-
-color: #636363; 
-
-} 
-
- 
-
-i { 
-
-font-size: 50px; 
-
-color: gray; 
-
-} 
-
- 
-
-/* Paper stack order */ 
-
-#p1 { 
-
-z-index: 3; 
-
-} 
-
- 
-
-#p2 { 
-
-z-index: 2; 
-
-} 
-
- 
-
-#p3 { 
-
-z-index: 1; 
-
-} 
-
-/* Style for the zoom control container */ 
-
-.zoom-control {
+    .zoom-control {
     text-align: center;
     background-color: #f4f4f4;
     padding: 10px;
     border-radius: 5px;
     z-index: 1000;
-    position: absolute; /* or 'fixed' depending on requirement */
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%; /* Adjust the width as needed */
-}
- 
+    position: absolute;
+    top: 12%; /* Adjust this value as needed to position vertically */
+    left: 50%; /* Center horizontally relative to the book */
+    transform: translateX(-50%); /* Center the zoom control on the book */
+    width: 80%;
+    }
 
- 
 
-/* Style for the label */ 
 
-.zoom-control label { 
 
-font-weight: bold; /* Make the label text bold */ 
+    /* Style for the label */
 
-margin-right: 10px; /* Space between label and slider */ 
+    .zoom-control label {
 
-} 
+        font-weight: bold;
+        /* Make the label text bold */
 
- 
+        margin-right: 10px;
+        /* Space between label and slider */
 
-/* Style for the range input (zoom slider) */ 
+    }
 
-#zoom-slider { 
 
-top: 20px; 
 
-width: 50%; /* Control the width of the slider */ 
+    /* Style for the range input (zoom slider) */
 
--webkit-appearance: none; /* Override default appearance */ 
+    #zoom-slider {
 
-appearance: none; 
+        top: 20px;
 
-height: 15px; /* Height of the slider */ 
+        width: 50%;
+        /* Control the width of the slider */
 
-background: #ddd; /* Background of the slider */ 
+        -webkit-appearance: none;
+        /* Override default appearance */
 
-outline: none; /* Remove the outline */ 
+        appearance: none;
 
-opacity: 0.7; /* Slightly transparent */ 
+        height: 15px;
+        /* Height of the slider */
 
--webkit-transition: .2s; /* Transition for the slider handle */ 
+        background: #ddd;
+        /* Background of the slider */
 
-transition: opacity .2s; 
+        outline: none;
+        /* Remove the outline */
 
-} 
+        opacity: 0.7;
+        /* Slightly transparent */
 
- 
+        -webkit-transition: .2s;
+        /* Transition for the slider handle */
 
-/* Style for the range input (zoom slider) when hovered */ 
+        transition: opacity .2s;
 
-#zoom-slider:hover { 
+    }
 
-opacity: 1; /* Fully opaque on hover */ 
 
-} 
 
- 
+    /* Style for the range input (zoom slider) when hovered */
 
-/* Style for the slider thumb (handle) */ 
+    #zoom-slider:hover {
 
-#zoom-slider::-webkit-slider-thumb { 
+        opacity: 1;
+        /* Fully opaque on hover */
 
--webkit-appearance: none; /* Override default appearance */ 
+    }
 
-appearance: none; 
 
-width: 25px; /* Width of the handle */ 
 
-height: 25px; /* Height of the handle */ 
+    /* Style for the slider thumb (handle) */
 
-background: #4CAF50; /* Green background */ 
+    #zoom-slider::-webkit-slider-thumb {
 
-cursor: pointer; /* Cursor changes to pointer */ 
+        -webkit-appearance: none;
+        /* Override default appearance */
 
-border-radius: 50%; /* Circular handle */ 
+        appearance: none;
 
-} 
+        width: 25px;
+        /* Width of the handle */
 
- 
+        height: 25px;
+        /* Height of the handle */
 
-#zoom-slider::-moz-range-thumb { 
+        background: #4CAF50;
+        /* Green background */
 
-top: 500px; 
+        cursor: pointer;
+        /* Cursor changes to pointer */
 
-width: 25px; /* Width of the handle */ 
+        border-radius: 50%;
+        /* Circular handle */
 
-height: 25px; /* Height of the handle */ 
+    }
 
-background: #4CAF50; /* Green background */ 
 
-cursor: pointer; /* Cursor changes to pointer */ 
 
-border-radius: 50%; /* Circular handle */ 
+    #zoom-slider::-moz-range-thumb {
 
- 
+        top: 500px;
 
-} 
+        width: 25px;
+        /* Width of the handle */
 
- 
+        height: 25px;
+        /* Height of the handle */
 
- 
+        background: #4CAF50;
+        /* Green background */
 
-</style> 
+        cursor: pointer;
+        /* Cursor changes to pointer */
 
- 
+        border-radius: 50%;
+        /* Circular handle */
 
-<!-- Previous Button --> 
 
-<div class="button-container"> 
 
-<!-- Previous Button --> 
+    }
+</style>
 
-<button id="prev-btn"> 
 
-<i class="fas fa-arrow-circle-left"></i>  
 
-</button> 
-
- 
-
-<!-- Next Button --> 
-
-<button id="next-btn"> 
-
-<i class="fas fa-arrow-circle-right"></i>  
-
-</button> 
-
-
-
-</div> 
+<div id="prevNextContainer">
+    <button id="prev-btn" class="control-button">Previous</button>
+    <button id="next-btn" class="control-button">Next</button>
+</div>
 
 <div class="zoom-control">
     <label for="zoom-slider">Zoom:</label>
     <input type="range" id="zoom-slider" min="50" max="600" value="100">
 </div>
 
- 
 
-<div id="pannable-container"> 
 
-<div id="pannable-content"> 
+<div id="pannable-container">
 
-<div class="container"> 
+    <div id="pannable-content">
 
-<!-- Book --> 
+        <div class="container">
 
-<div id="book" class="book"> 
+            <!-- Book -->
 
-<!-- Paper 1 --> 
+            <div id="book" class="book">
 
-<div id="p1" class="paper"> 
+                <!-- Paper 1 -->
 
-<div class="front"> 
+                <div id="p1" class="paper">
 
-<div id="f1" class="front-content"> 
+                    <div class="front">
 
-<img src="https://i.ibb.co/N1phR1g/Pg-1.png" alt="Final-Arizona-Ag-Publication-Jan-2024-Page-1" alt="CHOICES-Publication-Fall-2023-1" style="height:95%; width: 100%"> 
+                        <div id="f1" class="front-content">
 
-</div> 
+                            <img src="https://i.ibb.co/N1phR1g/Pg-1.png" alt="Final-Arizona-Ag-Publication-Jan-2024-Page-1"
 
-</div> 
+                                style="height:95%; width: 100%">
 
-<div class="back"> 
+                        </div>
 
-<div id="b1" class="back-content"> 
+                    </div>
 
-<img src="https://i.ibb.co/84PcLsB/Pg-2.png" alt="Pg2" style="height:95%; width: 100%"> 
+                    <div class="back">
 
-</div> 
+                        <div id="b1" class="back-content">
 
-</div> 
+                            <img src="https://i.ibb.co/84PcLsB/Pg-2.png" alt="Pg2" style="height:95%; width: 100%">
+                            
+                        
+                        </div>
 
-</div> 
+                    </div>
 
-<!-- Paper 2 --> 
+                </div>
 
-<div id="p2" class="paper"> 
+                <!-- Paper 2 -->
 
-<div class="front"> 
+                <div id="p2" class="paper">
 
-<div id="f2" class="front-content"> 
+                    <div class="front">
 
-<img src="https://i.ibb.co/rmMjhnv/Pg-3.png" alt="Pg3" style="height:95%;width:100%"
-</div> 
-</div>
-</div> 
+                        <div id="f2" class="front-content">
 
-<div class="back"> 
+                            <img src="https://i.ibb.co/rmMjhnv/Pg-3.png" alt="Pg-3" border="0" style="height:95%; width: 100%">
+                            
+                            
+                        </div>
+                    </div>
 
-<div id="b2" class="back-content"> 
+                    <div class="back">
 
-<img src="https://i.ibb.co/VgT3tCC/Pg-4.png" alt="Pg6" border="0"style="height:95%;width:100%"> 
+                        <div id="b2" class="back-content">
+                            <img src="https://i.ibb.co/VgT3tCC/Pg-4.png" alt="pg-4" border="0" 
 
-</div> 
+                            style="height:95%;width:100%">
 
-</div> 
+                        </div>
 
-</div> 
+                    </div>
 
-<!-- Paper 3 --> 
+                </div>
 
-<div id="p3" class="paper"> 
+                <!-- Paper 3 -->
 
-<div class="front"> 
+                <div id="p3" class="paper">
 
-<div id="f3" class="front-content"> 
+                    <div class="front">
 
-<img src="https://i.ibb.co/Bn5tJ8z/pg5.png" alt="Pg-7" border="0" style="height:95%;width:100%"> 
+                        <div id="f3" class="front-content">
 
-</div> 
+                            <img src="https://i.ibb.co/DknKMg6/Pg-5.png" alt="pg-5" border="0" 
+                                
+                            
+                            style="height:95%;width:100%">
 
-</div> 
+                        </div>
 
-<div class="back"> 
+                    </div>
 
-<div id="b3" class="back-content"> 
+                    <div class="back">
 
-<img src="https://i.ibb.co/2vqbTpd/Pg-6.png" alt="page6" style="height:95%;width:100%"> 
+                        <div id="b3" class="back-content">
 
-</div> 
+                            <img src="https://i.ibb.co/2vqbTpd/Pg-6.png" alt="pg-6" border="0" 
+                            
+                            
+                            
+                            style="height:95%;width:100%">
 
-</div> 
+                        </div>
 
-</div> 
+                    </div>
 
-<!-- Paper 4 --> 
+                </div>
 
-<div id="p4" class="paper"> 
+                <!-- Paper 4 -->
 
-<div class="front"> 
+                <div id="p4" class="paper">
 
-<div id="f4" class="front-content"> 
+                    <div class="front">
 
-<img src="https://i.ibb.co/dBWVzKg/Pg-8.png" alt="pgg7" style="height:95%;width:100%"> 
+                        <div id="f4" class="front-content">
 
-</div> 
+                            <img src="https://i.ibb.co/dBWVzKg/Pg-8.png" alt="pg-7" border="0" 
 
-</div> 
 
-<div class="back"> 
+                            style="height:95%;width:100%">
 
-<div id="b4" class="back-content"> 
+                        </div>
 
-<img src="https://i.ibb.co/rk35PdS/Pg-88.png" alt="Final-Arizona-Ag-Publication-Jan-2024-Page-5"  style="height:95%;width:100%"> 
+                    </div>
 
-</div> 
+                    <div class="back">
 
-</div> 
+                        <div id="b4" class="back-content">
 
-</div> 
+                            <img src="https://i.ibb.co/rk35PdS/Pg-88.png" alt="pg-8" border="0" 
+                            
+                            
+                            style="height:95%;width:100%">
 
-</div> 
+                        </div>
 
-</div> 
+                    </div>
 
- 
+                </div>
 
-</body> 
+            </div>
 
-</html> 
+        </div>
 
-<script> 
 
-// References to DOM Elements 
 
-const prevBtn = document.querySelector("#prev-btn"); 
+        </body>
 
-const nextBtn = document.querySelector("#next-btn"); 
+</html>
 
-const book = document.querySelector("#book"); 
+<script>
 
-const papers = [document.querySelector("#p1"), document.querySelector("#p2"), document.querySelector("#p3"), document.querySelector("#p4"), document.querySelector("#p5")]; 
+    // References to DOM Elements 
 
-const pannableContent = document.getElementById('pannable-content'); 
+    const prevBtn = document.querySelector("#prev-btn");
 
-const zoomSlider = document.getElementById('zoom-slider'); 
+    const nextBtn = document.querySelector("#next-btn");
 
- 
+    const book = document.querySelector("#book");
 
-// Variables for panning and zooming 
+    const papers = [document.querySelector("#p1"), document.querySelector("#p2"), document.querySelector("#p3"), document.querySelector("#p4"), document.querySelector("#p5")];
 
-let zoomFactor = 1; 
+    const pannableContent = document.getElementById('pannable-content');
 
-let panX = 0; 
+    const zoomSlider = document.getElementById('zoom-slider');
 
-let panY = 0; 
 
-let isDragging = false; 
 
-let startX = 0; 
+    // Variables for panning and zooming 
 
-let startY = 0; 
+    let zoomFactor = 1;
 
- 
+    let panX = 0;
 
-// Variables for book navigation 
+    let panY = 0;
 
-let currentLocation = 1; 
+    let isDragging = false;
 
-const numOfPapers = papers.length; 
+    let startX = 0;
 
-const maxLocation = numOfPapers + 1; 
+    let startY = 0;
 
- 
 
-// Event Listener for zoom control 
 
-zoomSlider.addEventListener('input', () => { 
+    // Variables for book navigation 
 
-zoomFactor = zoomSlider.value / 100; 
+    let currentLocation = 1;
 
-updateZoomPan(); 
+    const numOfPapers = papers.length;
 
-}); 
+    const maxLocation = numOfPapers + 1;
 
- 
 
-// Function to apply zoom and pan 
 
-function updateZoomPan() { 
+    // Event Listener for zoom control 
 
-pannableContent.style.transform = `scale(${zoomFactor}) translate(${panX}px, ${panY}px)`; 
+    zoomSlider.addEventListener('input', () => {
 
-if (isDragging) { 
+        zoomFactor = zoomSlider.value / 100;
 
-requestAnimationFrame(updateZoomPan); 
+        updateZoomPan();
 
-} 
+    });
 
-} 
 
- 
 
-// Initial update for zoom and pan 
+    // Function to apply zoom and pan 
 
-updateZoomPan(); 
+    function updateZoomPan() {
 
- 
+        pannableContent.style.transform = `scale(${zoomFactor}) translate(${panX}px, ${panY}px)`;
 
-// Mouse events for dynamic panning 
+        if (isDragging) {
 
-pannableContent.addEventListener('mousedown', (e) => { 
+            requestAnimationFrame(updateZoomPan);
 
-e.preventDefault(); // Prevent default action 
+        }
 
-isDragging = true; 
+    }
 
-startX = e.clientX - panX; 
 
-startY = e.clientY - panY; 
 
-pannableContent.style.cursor = 'grabbing'; 
+    // Initial update for zoom and pan 
 
-requestAnimationFrame(updateZoomPan);  
+    updateZoomPan();
 
-}); 
 
- 
 
-document.addEventListener('mouseup', () => { 
+    // Mouse events for dynamic panning 
 
-isDragging = false; 
+    pannableContent.addEventListener('mousedown', (e) => {
 
-pannableContent.style.cursor = 'grab'; 
+        e.preventDefault(); // Prevent default action 
 
-}); 
+        isDragging = true;
 
- 
+        startX = e.clientX - panX;
 
-document.addEventListener('mousemove', (e) => { 
+        startY = e.clientY - panY;
 
-if (isDragging) { 
+        pannableContent.style.cursor = 'grabbing';
 
-e.preventDefault(); // Prevent default action during dragging 
+        requestAnimationFrame(updateZoomPan);
 
-panX = e.clientX - startX; 
+    });
 
-panY = e.clientY - startY; 
 
-pannableContent.style.cursor = 'grabbing'; 
 
-} 
+    document.addEventListener('mouseup', () => {
 
-}); 
+        isDragging = false;
 
- 
+        pannableContent.style.cursor = 'grab';
 
- 
+    });
 
-// Event Listeners for navigation buttons 
 
-prevBtn.addEventListener("click", goPrevPage); 
 
-nextBtn.addEventListener("click", goNextPage); 
+    document.addEventListener('mousemove', (e) => {
 
- 
+        if (isDragging) {
 
-// Functions for page flipping 
+            e.preventDefault(); // Prevent default action during dragging 
 
-function openBook() { 
+            panX = e.clientX - startX;
 
-book.style.transform = "translateX(50%)"; 
+            panY = e.clientY - startY;
 
-prevBtn.style.transform = "translateX(-180px)"; 
+            pannableContent.style.cursor = 'grabbing';
 
-nextBtn.style.transform = "translateX(150px)"; 
+        }
 
-} 
+    });
 
- 
 
-function closeBook(isAtBeginning) { 
 
-book.style.transform = isAtBeginning ? "translateX(0%)" : "translateX(50%)"; 
 
-prevBtn.style.transform = "translateX(0px)"; 
 
-nextBtn.style.transform = "translateX(0px)"; 
+    // Event Listeners for navigation buttons 
 
-} 
+    prevBtn.addEventListener("click", goPrevPage);
 
- 
+    nextBtn.addEventListener("click", goNextPage);
 
-function goNextPage() { 
 
-if (currentLocation < maxLocation) { 
 
-if (currentLocation === 1) { 
+    // Functions for page flipping 
 
-openBook(); 
+    function openBook() {
 
-} else if (currentLocation === numOfPapers) { 
+        book.style.transform = "translateX(50%)";
 
-closeBook(false); 
+        prevBtn.style.transform = "translateX(0px)";
 
-} 
+        nextBtn.style.transform = "translateX(0px)";
 
- 
+    }
 
-papers[currentLocation - 1].classList.add("flipped"); 
 
-papers[currentLocation - 1].style.zIndex = currentLocation; 
 
- 
+    function closeBook(isAtBeginning) {
 
-currentLocation++; 
+        book.style.transform = isAtBeginning ? "translateX(0%)" : "translateX(0%)";
 
-} 
+        prevBtn.style.transform = "translateX(0px)";
 
-} 
+        nextBtn.style.transform = "translateX(0px)";
 
- 
+    }
 
-function goPrevPage() { 
 
-if (currentLocation > 1) { 
 
-currentLocation--; 
+    function goNextPage() {
+    if (currentLocation < maxLocation) {
+        // Open book for first page
+        if (currentLocation === 1) {
+            openBook();
+        }
 
- 
+        // Turn page
+        papers[currentLocation - 1].classList.add("flipped");
+        papers[currentLocation - 1].style.zIndex = currentLocation;
 
-if (currentLocation === 1) { 
+        // Close book for last page
+        if (currentLocation === numOfPapers) {
+            closeBook(false);
+        }
 
-closeBook(true); 
+        currentLocation++;
+    }
+}
 
-} else if (currentLocation === numOfPapers) { 
+function goPrevPage() {
+    if (currentLocation > 1) {
+        currentLocation--;
 
-openBook(); 
+        // If moving back from the last page
+        if (currentLocation === numOfPapers) {
+            openBook();
+        }
 
-} 
+        // If moving back to the first page
+        if (currentLocation === 1) {
+            closeBook(true);
+        }
 
- 
+        // Turn page back
+        papers[currentLocation - 1].classList.remove("flipped");
+        papers[currentLocation - 1].style.zIndex = numOfPapers - currentLocation + 1;
+    }
+}
 
-papers[currentLocation - 1].classList.remove("flipped"); 
 
-papers[currentLocation - 1].style.zIndex = numOfPapers - currentLocation + 1; 
-
-} 
-
-} 
-
-</script> 
-
- 
-
- 
-
- 
+</script>
